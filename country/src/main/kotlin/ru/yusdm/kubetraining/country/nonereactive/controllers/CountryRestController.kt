@@ -16,7 +16,7 @@ import kotlin.streams.toList
 class CountryRestController(val countryJpaService: CountryJpaService) {
 
     companion object {
-        const val PATH = "/country/simplerest"
+        const val PATH = "/simplerest"
     }
 
     @GetMapping(value = ["/ping"])

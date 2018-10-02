@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-training-ingress
+  namespace: kube-training
+spec:
+  rules:
+    - host: kube.training.com
+      http:
+        paths:
+          - path: /api/country
+            backend:
+              serviceName: country-srv
+              servicePort: 8080

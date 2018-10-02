@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-training
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: country-srv
+  namespace: kube-training
+spec:
+  selector:
+    app: country-deployment
+  ports:
+#    accept connection on 8080
+  - port: 8080
+#    route trafic to 8081
+    #targetPort: 8081
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: country-deployment
+spec:
+  replicas: 1
+
+  #The Pods are labeled
+  template:
+    metadata:
+      name: country-pod
+      labels:
+        app: country
+        type: server
+
+    spec:
+      containers:
+      - name: country-cntr
+        image: countryservice
+        imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+
+  #defines how the Deployment finds which Pods to manage
+  selector:
+    matchLabels:
+      app: country
+      type: server

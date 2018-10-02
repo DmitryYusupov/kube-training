@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: country-deployment
+  namespace: kube-training
+spec:
+  replicas: 2
+
+  #The Pods are labeled
+  template:
+    metadata:
+      name: country-pod
+      labels:
+        app: country
+        type: server
+
+    spec:
+      containers:
+      - name: country-cntr
+        image: usikovich/countryservice
+        imagePullPolicy: Always
+      restartPolicy: Always
+
+  #defines how the Deployment finds which Pods to manage
+  selector:
+    matchLabels:
+      app: country
+      type: server
