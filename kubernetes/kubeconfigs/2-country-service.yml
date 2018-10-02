@@ -9,7 +9,7 @@ spec:
     app: country
     type: server
   ports:
-  #    accept connection on 8080
+  #accept connection on 8080
   - port: 8080
-    #    route trafic to 8081
-    #targetPort: 8081
+    #route trafic to 8081
+    targetPort: 8010

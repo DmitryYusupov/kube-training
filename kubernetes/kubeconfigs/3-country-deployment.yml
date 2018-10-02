@@ -19,6 +19,10 @@ spec:
       - name: country-cntr
         image: usikovich/countryservice
         imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
       restartPolicy: Always
 
   #defines how the Deployment finds which Pods to manage
