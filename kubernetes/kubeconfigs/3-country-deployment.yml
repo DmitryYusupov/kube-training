@@ -20,9 +20,14 @@ spec:
         image: usikovich/countryservice
         imagePullPolicy: Always
         readinessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          #Number of seconds after which the probe times out.
+          #Defaults to 1 second. Minimum value is 1.
+          timeoutSeconds: 2
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: 8010
       restartPolicy: Always
 
   #defines how the Deployment finds which Pods to manage
