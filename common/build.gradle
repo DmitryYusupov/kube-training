@@ -5,8 +5,23 @@ plugins {
 group 'ru.yusdm.kubetraining'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 repositories {
     mavenCentral()
+    mavenLocal()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId 'common'
+
+            from components.java
+        }
+    }
 }
 
 dependencies {

@@ -39,12 +39,13 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/milestone" }
 }
 
-
 dependencies {
+    compile('ru.yusdm.kubetraining:common:1.0-SNAPSHOT')
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

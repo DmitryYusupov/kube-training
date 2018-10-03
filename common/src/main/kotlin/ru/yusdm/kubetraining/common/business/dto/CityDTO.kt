@@ -1,5 +1,4 @@
-package ru.ysdm.kubetraining.city.common.dto
-
+package ru.yusdm.kubetraining.common.business.dto
 
 class CityDTO {
     var id: Long? = null

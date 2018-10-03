@@ -4,11 +4,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import ru.ysdm.kubetraining.city.common.dto.CityDTO
 import ru.ysdm.kubetraining.city.nonereactive.controllers.CityRestController.Companion.PATH
 import ru.ysdm.kubetraining.city.nonereactive.extensions.toDto
 import ru.ysdm.kubetraining.city.nonereactive.extensions.toJPA
 import ru.ysdm.kubetraining.city.nonereactive.service.CityJpaService
+import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import kotlin.streams.toList
 
 @RestController

@@ -39,6 +39,7 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/milestone" }
 }
@@ -49,6 +50,7 @@ ext {
 }
 
 dependencies {
+    compile('ru.yusdm.kubetraining:common:1.0-SNAPSHOT')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')

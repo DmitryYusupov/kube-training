@@ -1,7 +1,7 @@
 package ru.ysdm.kubetraining.city.nonereactive.extensions
 
-import ru.ysdm.kubetraining.city.common.dto.CityDTO
 import ru.ysdm.kubetraining.city.nonereactive.domain.CityJpaEntity
+import ru.yusdm.kubetraining.common.business.dto.CityDTO
 
 fun CityJpaEntity.toDto(): CityDTO {
     return CityDTO().apply {
