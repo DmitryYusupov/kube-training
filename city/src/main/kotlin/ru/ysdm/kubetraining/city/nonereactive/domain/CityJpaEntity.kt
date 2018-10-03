@@ -4,6 +4,7 @@ import java.time.Clock
 import java.time.LocalDateTime
 import javax.persistence.*
 
+@Entity
 class CityJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,25 +1,27 @@
 package ru.ysdm.kubetraining.city.nonereactive.controllers
 
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.ysdm.kubetraining.city.common.dto.CityDTO
+import ru.ysdm.kubetraining.city.nonereactive.controllers.CityRestController.Companion.PATH
 import ru.ysdm.kubetraining.city.nonereactive.extensions.toDto
 import ru.ysdm.kubetraining.city.nonereactive.extensions.toJPA
 import ru.ysdm.kubetraining.city.nonereactive.service.CityJpaService
 import kotlin.streams.toList
 
 @RestController
+@RequestMapping(value = [PATH])
 class CityRestController(val cityJpaService: CityJpaService) {
     companion object {
-        const val PATH = "city/simplerest"
+        const val PATH = "/simplerest"
     }
 
     @GetMapping(value = ["/ping"])
-    fun ping() = "This is ping"
+    fun ping() = "This is ping (CityRest)"
 
-    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping(produces = [APPLICATION_JSON_VALUE])
     fun getAll(): List<CityDTO> {
         return cityJpaService.findAll().stream().map { it.toDto() }.toList()
     }
@@ -37,13 +39,18 @@ class CityRestController(val cityJpaService: CityJpaService) {
         cityJpaService.deleteById(id)
     }
 
-    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
     fun save(@RequestBody city: CityDTO): CityDTO {
         return cityJpaService.saveUpdate(city.toJPA()).toDto()
     }
 
-    @PutMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PutMapping(consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
     fun update(@RequestBody city: CityDTO): CityDTO {
         return cityJpaService.saveUpdate(city.toJPA()).toDto()
+    }
+
+    @GetMapping(value = ["/country/{id}"])
+    fun findByCountryId(@PathVariable id: Long): List<CityDTO> {
+        return cityJpaService.findByCountryId(id).stream().map { it.toDto() }.toList()
     }
 }

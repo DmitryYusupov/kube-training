@@ -16,11 +16,11 @@ import kotlin.streams.toList
 class CountryRestController(val countryJpaService: CountryJpaService) {
 
     companion object {
-        const val PATH = "/country/simplerest"
+        const val PATH = "/simplerest"
     }
 
     @GetMapping(value = ["/ping"])
-    fun ping() = "This is ping"
+    fun ping() = "This is ping (CountryRest)"
 
     @GetMapping(produces = [APPLICATION_JSON_VALUE])
     fun getAll(): List<CountryDTO> {
