@@ -4,8 +4,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.openfeign.EnableFeignClients
 
-@EnableFeignClients
+
 @SpringBootApplication
+@EnableFeignClients
 class CountryApplication
 
 fun main(args: Array<String>) {
