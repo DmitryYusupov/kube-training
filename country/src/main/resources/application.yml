@@ -5,3 +5,7 @@ spring:
     show-sql: true
   application:
     name: countryservice
+
+citysrvfeign:
+  ribbon:
+    listOfServers: ${KUBER_CITY_SERVICE_HOST}:${KUBER_CITY_SERVICE_PORT}

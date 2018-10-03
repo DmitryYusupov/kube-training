@@ -18,6 +18,11 @@ spec:
       containers:
       - name: country-cntr
         image: usikovich/countryservice
+        env:
+        - name: KUBER_CITY_SERVICE_HOST
+          value: $(CITY_SRV_SERVICE_HOST)
+        - name: KUBER_CITY_SERVICE_PORT
+          value: $(CITY_SRV_SERVICE_PORT)
         imagePullPolicy: Always
         readinessProbe:
           initialDelaySeconds: 20
