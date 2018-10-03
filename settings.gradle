@@ -1,1 +1,5 @@
 rootProject.name = 'kubetraining'
+include 'common'
+include 'country'
+include 'city'
+
