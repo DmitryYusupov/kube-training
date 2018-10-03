@@ -4,19 +4,26 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import ru.yusdm.kubetraining.common.business.dto.CountryDTO
 import ru.yusdm.kubetraining.country.nonereactive.controllers.CountryRestController.Companion.PATH
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toDto
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toJPA
+import ru.yusdm.kubetraining.country.nonereactive.integration.CityFeignClient
 import ru.yusdm.kubetraining.country.nonereactive.service.CountryJpaService
 import kotlin.streams.toList
 
 @RestController
 @RequestMapping(value = [PATH])
-class CountryRestController(val countryJpaService: CountryJpaService) {
+class CountryRestController(val countryJpaService: CountryJpaService, val cityFeignClient: CityFeignClient) {
 
     companion object {
         const val PATH = "/simplerest"
+    }
+
+    @GetMapping(value = ["/testfeign"])
+    fun testFeign() : MutableList<CityDTO> {
+        return cityFeignClient.getAllCities()
     }
 
     @GetMapping(value = ["/ping"])

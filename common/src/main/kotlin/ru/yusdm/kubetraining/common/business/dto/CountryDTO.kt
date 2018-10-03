@@ -1,3 +1,8 @@
 package ru.yusdm.kubetraining.common.business.dto
 
-data class CountryDTO(val id: Long?, val name: String?, val description: String?)
+class CountryDTO{
+    var id: Long? = null
+    var name: String? = null
+    var description: String? = null
+    val cities = mutableListOf<CityDTO>()
+}
