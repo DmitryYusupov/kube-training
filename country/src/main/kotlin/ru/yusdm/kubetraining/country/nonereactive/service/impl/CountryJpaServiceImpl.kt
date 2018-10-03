@@ -1,10 +1,10 @@
-package ru.yusdm.kubetraining.country.jpa.service.impl
+package ru.yusdm.kubetraining.country.nonereactive.service.impl
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import ru.yusdm.kubetraining.country.jpa.domain.CountryJpaEntity
-import ru.yusdm.kubetraining.country.jpa.repo.CountrySpringDataRepo
-import ru.yusdm.kubetraining.country.jpa.service.CountryJpaService
+import ru.yusdm.kubetraining.country.nonereactive.domain.CountryJpaEntity
+import ru.yusdm.kubetraining.country.nonereactive.repo.CountrySpringDataRepo
+import ru.yusdm.kubetraining.country.nonereactive.service.CountryJpaService
 import java.util.*
 
 

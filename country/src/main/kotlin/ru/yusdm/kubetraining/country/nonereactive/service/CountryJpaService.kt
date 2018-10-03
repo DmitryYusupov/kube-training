@@ -1,6 +1,6 @@
-package ru.yusdm.kubetraining.country.jpa.service
+package ru.yusdm.kubetraining.country.nonereactive.service
 
-import ru.yusdm.kubetraining.country.jpa.domain.CountryJpaEntity
+import ru.yusdm.kubetraining.country.nonereactive.domain.CountryJpaEntity
 import java.util.*
 
 interface CountryJpaService {

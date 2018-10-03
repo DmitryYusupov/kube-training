@@ -1,14 +1,14 @@
-package ru.yusdm.kubetraining.country.jpa.controllers
+package ru.yusdm.kubetraining.country.nonereactive.controllers
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.yusdm.kubetraining.country.common.dto.CountryDTO
-import ru.yusdm.kubetraining.country.jpa.controllers.CountryRestController.Companion.PATH
-import ru.yusdm.kubetraining.country.jpa.extensions.toDto
-import ru.yusdm.kubetraining.country.jpa.extensions.toJPA
-import ru.yusdm.kubetraining.country.jpa.service.CountryJpaService
+import ru.yusdm.kubetraining.country.nonereactive.controllers.CountryRestController.Companion.PATH
+import ru.yusdm.kubetraining.country.nonereactive.extensions.toDto
+import ru.yusdm.kubetraining.country.nonereactive.extensions.toJPA
+import ru.yusdm.kubetraining.country.nonereactive.service.CountryJpaService
 import kotlin.streams.toList
 
 @RestController
@@ -16,7 +16,7 @@ import kotlin.streams.toList
 class CountryRestController(val countryJpaService: CountryJpaService) {
 
     companion object {
-        const val PATH = "/simplerest"
+        const val PATH = "/country/simplerest"
     }
 
     @GetMapping(value = ["/ping"])

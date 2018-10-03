@@ -1,0 +1,37 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: city-deployment
+  namespace: kube-training
+spec:
+  replicas: 2
+
+  #The Pods are labeled
+  template:
+    metadata:
+      name: city-pod
+      labels:
+        app: city
+        type: server
+
+    spec:
+      containers:
+      - name: city-cntr
+        image: usikovich/cityservice
+        imagePullPolicy: Always
+        readinessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          #Number of seconds after which the probe times out.
+          #Defaults to 1 second. Minimum value is 1.
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: 8011
+      restartPolicy: Always
+
+  #defines how the Deployment finds which Pods to manage
+  selector:
+    matchLabels:
+      app: city
+      type: server

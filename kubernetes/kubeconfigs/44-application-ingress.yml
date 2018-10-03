@@ -14,3 +14,7 @@ spec:
             backend:
               serviceName: country-srv
               servicePort: 8080
+          - path: /api/city
+            backend:
+              serviceName: city-srv
+              servicePort: 8080
