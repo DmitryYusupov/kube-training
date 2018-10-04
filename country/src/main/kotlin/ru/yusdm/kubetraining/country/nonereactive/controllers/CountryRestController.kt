@@ -22,8 +22,13 @@ class CountryRestController(val countryJpaService: CountryJpaService, val cityFe
     }
 
     @GetMapping(value = ["/testfeign"])
-    fun testFeign() : MutableList<CityDTO> {
+    fun getAllCitiesWithFeign() : MutableList<CityDTO> {
         return cityFeignClient.getAllCities()
+    }
+
+    @GetMapping(value = ["/pingfeigncity"])
+    fun pingCityServiceWithFeign() : String {
+        return cityFeignClient.pingCityService()
     }
 
     @GetMapping(value = ["/ping"])

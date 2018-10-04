@@ -9,6 +9,7 @@ import ru.ysdm.kubetraining.city.nonereactive.extensions.toDto
 import ru.ysdm.kubetraining.city.nonereactive.extensions.toJPA
 import ru.ysdm.kubetraining.city.nonereactive.service.CityJpaService
 import ru.yusdm.kubetraining.common.business.dto.CityDTO
+import java.net.InetAddress
 import kotlin.streams.toList
 
 @RestController
@@ -19,7 +20,7 @@ class CityRestController(val cityJpaService: CityJpaService) {
     }
 
     @GetMapping(value = ["/ping"])
-    fun ping() = "This is ping (CityRest)"
+    fun ping() = "This is ping (CityRest) " + InetAddress.getLocalHost().hostAddress;
 
     @GetMapping(produces = [APPLICATION_JSON_VALUE])
     fun getAll(): List<CityDTO> {
