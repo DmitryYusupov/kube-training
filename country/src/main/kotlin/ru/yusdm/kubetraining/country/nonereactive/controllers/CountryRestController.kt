@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate
 import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import ru.yusdm.kubetraining.common.business.dto.CountryDTO
 import ru.yusdm.kubetraining.country.common.configs.WebConfigs
+import ru.yusdm.kubetraining.country.common.solutions.simpleExchangeGet
 import ru.yusdm.kubetraining.country.nonereactive.controllers.CountryRestController.Companion.PATH
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toDto
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toJPA
@@ -60,13 +61,8 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     //------RestTemplate with cityService Begin-------------------
     @GetMapping(value = ["/resttemplate/city/all"])
     fun getAllCitiesWithRestTemplate(): List<CityDTO> {
-        val responseEntity = restTemplate.exchange(
-                webConfigs.getCityServiceHttpUrl()+"/simplerest",
-                HttpMethod.GET,
-                HttpEntity.EMPTY,
-                object : ParameterizedTypeReference<List<CityDTO>>() {}
-        )
-        return responseEntity.body ?: emptyList()
+        val url = webConfigs.getCityServiceHttpUrl() + "/simplerest"
+        return restTemplate.simpleExchangeGet<List<CityDTO>>(url).body ?: emptyList()
     }
 
     @GetMapping(value = ["/resttemplate/city/ping"])
@@ -80,13 +76,7 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     @GetMapping(value = ["/resttemplate/ambassador/city/all"])
     fun getAllCitiesWithAmbassadorRestTemplate(): List<CityDTO> {
         val cityAmbassadorUrl = webConfigs.getAmbassadorHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
-        val responseEntity = restTemplate.exchange(
-                cityAmbassadorUrl,
-                HttpMethod.GET,
-                HttpEntity.EMPTY,
-                object : ParameterizedTypeReference<List<CityDTO>>() {}
-        )
-        return responseEntity.body ?: emptyList()
+        return restTemplate.simpleExchangeGet<List<CityDTO>>(cityAmbassadorUrl).body ?: emptyList()
     }
 
     @GetMapping(value = ["/resttemplate/ambassador/city/ping"])

@@ -44,13 +44,20 @@ spec:
         - name: KUBER_CITY_SERVICE_PORT
           value: $(CITY_SRV_SERVICE_PORT)
         - name: KUBER_CITY_SERVICE_NAME
-          value: city-srv
+          value: "city-srv"
 
           #Here i will use default Ambassador Host and port ENV names,
           #but logical service name i will pass
         - name: KUBER_AMBASSADOR_SERVICE_NAME
-          value: gtw-ambassador
+          value: "gtw-ambassador"
         imagePullPolicy: Always
+        livenessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: 8010
         readinessProbe:
           initialDelaySeconds: 20
           periodSeconds: 20

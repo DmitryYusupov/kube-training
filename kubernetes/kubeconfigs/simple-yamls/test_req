@@ -1,0 +1,27 @@
+#Test Country
+----test ingress
+http://kube.training.com//api/ingress/country/actuator/health
+
+http://kube.training.com/api/ingress/country/simplerest
+http://kube.training.com/api/ingress/country/simplerest/1
+http://kube.training.com/api/ingress/country/simplerest/ping
+
+http://kube.training.com/api/ingress/country/simplerest/feign/city/all
+http://kube.training.com/api/ingress/country/simplerest/feign/city/ping
+
+-
+http://kube.training.com/api/ingress/country/simplerest/feign/ambassador/city/all
+-
+http://kube.training.com/api/ingress/country/simplerest/feign/ambassador/city/ping
+
+
+---rest template
+-
+http://kube.training.com/api/ingress/country/simplerest/resttemplate/city/all
+-
+http://kube.training.com/api/ingress/country/simplerest/resttemplate/city/ping
+
+
+http://kube.training.com/api/ingress/country/simplerest/resttemplate/ambassador/city/all
+http://kube.training.com/api/ingress/country/simplerest/resttemplate/ambassador/city/ping
+

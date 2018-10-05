@@ -9,12 +9,19 @@ class YamlConfigs {
     companion object {
         const val SERVICE_PREFIX = "custom.services."
         const val CITY_SERVICE_PREFIX = "${SERVICE_PREFIX}cityservice."
+        const val AMBASSADOR_SERVICE_PREFIX = "${SERVICE_PREFIX}ambassadorservice."
     }
 
-    @Value("\${" + CITY_SERVICE_PREFIX + "logicalName}")
-    lateinit var cityService: String
+    @Value("\${" + CITY_SERVICE_PREFIX + "dnsName}")
+    lateinit var cityServiceDnsName: String
 
-    @Value("\${" + SERVICE_PREFIX + "ambassadorservice.logicalName}")
-    lateinit var ambassadorService: String
+    @Value("\${" + CITY_SERVICE_PREFIX + "port}")
+    lateinit var cityServicePort: String
+
+    @Value("\${" + AMBASSADOR_SERVICE_PREFIX + "dnsName}")
+    lateinit var ambassadorServiceDnsName: String
+
+    @Value("\${" + AMBASSADOR_SERVICE_PREFIX + "port}")
+    lateinit var ambassadorServicePort: String
 }
 

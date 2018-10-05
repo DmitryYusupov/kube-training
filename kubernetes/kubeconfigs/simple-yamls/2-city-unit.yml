@@ -37,6 +37,13 @@ spec:
       - name: city-cntr
         image: usikovich/cityservice
         imagePullPolicy: Always
+        livenessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: 8011
         readinessProbe:
           initialDelaySeconds: 20
           periodSeconds: 20

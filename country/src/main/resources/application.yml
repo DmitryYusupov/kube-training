@@ -19,14 +19,16 @@ citysrvfeign:
 #used in feign client
 ambassadorfeign:
   ribbon:
-    listOfServers: ${GTW_AMBASSADOR_HOST}:${GTW_AMBASSADOR_PORT}
+    listOfServers: ${GTW_AMBASSADOR_SERVICE_HOST}:${GTW_AMBASSADOR_SERVICE_PORT}
 
 #Custom properties
 custom:
   services:
     ambassadorservice:
-      logicalName: ${KUBER_AMBASSADOR_SERVICE_NAME}
+      #logical name of service, store in dns in kube cluster
+      dnsName: ${KUBER_AMBASSADOR_SERVICE_NAME}
+      port: ${GTW_AMBASSADOR_SERVICE_PORT}
     cityservice:
       host: ${KUBER_CITY_SERVICE_HOST}
       port: ${KUBER_CITY_SERVICE_PORT}
-      logicalName: ${KUBER_CITY_SERVICE_NAME}
+      dnsName: ${KUBER_CITY_SERVICE_NAME}

@@ -12,8 +12,12 @@ class WebConfigs(val yamlConfigs: YamlConfigs) {
     @LoadBalanced
     fun getLoadBalancedRestTemplate(): RestTemplate = RestTemplate()
 
-    fun getCityServiceHttpUrl() = "http://" + yamlConfigs.cityService
+    fun getCityServiceHttpUrl() = with(yamlConfigs) {
+        "http://$cityServiceDnsName:$cityServicePort"
+    }
 
-    fun getAmbassadorHttpUrl() = "http://" + yamlConfigs.ambassadorService
+    fun getAmbassadorHttpUrl() = with(yamlConfigs) {
+        "http://$ambassadorServiceDnsName:$ambassadorServicePort"
+    }
 
 }
