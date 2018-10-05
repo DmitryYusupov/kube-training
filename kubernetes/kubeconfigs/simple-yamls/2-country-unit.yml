@@ -37,10 +37,19 @@ spec:
       - name: country-cntr
         image: usikovich/countryservice
         env:
+          #You can not to pass them and you names like in kube
+          #But i prefer to use my own names
         - name: KUBER_CITY_SERVICE_HOST
           value: $(CITY_SRV_SERVICE_HOST)
         - name: KUBER_CITY_SERVICE_PORT
           value: $(CITY_SRV_SERVICE_PORT)
+        - name: KUBER_CITY_SERVICE_NAME
+          value: city-srv
+
+          #Here i will use default Ambassador Host and port ENV names,
+          #but logical service name i will pass
+        - name: KUBER_AMBASSADOR_SERVICE_NAME
+          value: gtw-ambassador
         imagePullPolicy: Always
         readinessProbe:
           initialDelaySeconds: 20

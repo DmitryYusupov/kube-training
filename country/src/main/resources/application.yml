@@ -1,21 +1,31 @@
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+
 server:
   port: 8010
+
 spring:
   jpa:
     show-sql: true
   application:
     name: countryservice
 
+#used in feign client
 citysrvfeign:
   ribbon:
     listOfServers: ${KUBER_CITY_SERVICE_HOST}:${KUBER_CITY_SERVICE_PORT}
 
+#used in feign client
 ambassadorfeign:
   ribbon:
-   listOfServers: ${KUBER_AMBASSADOR_HOST}:${KUBER_AMBASSADOR_PORT}
+    listOfServers: ${GTW_AMBASSADOR_HOST}:${GTW_AMBASSADOR_PORT}
 
+#Custom properties
 custom:
- services:
+  services:
+    ambassadorservice:
+      logicalName: ${KUBER_AMBASSADOR_SERVICE_NAME}
     cityservice:
       host: ${KUBER_CITY_SERVICE_HOST}
       port: ${KUBER_CITY_SERVICE_PORT}
