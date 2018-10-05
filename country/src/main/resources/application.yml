@@ -9,3 +9,14 @@ spring:
 citysrvfeign:
   ribbon:
     listOfServers: ${KUBER_CITY_SERVICE_HOST}:${KUBER_CITY_SERVICE_PORT}
+
+ambassadorfeign:
+  ribbon:
+   listOfServers: ${KUBER_AMBASSADOR_HOST}:${KUBER_AMBASSADOR_PORT}
+
+custom:
+ services:
+    cityservice:
+      host: ${KUBER_CITY_SERVICE_HOST}
+      port: ${KUBER_CITY_SERVICE_PORT}
+      logicalName: ${KUBER_CITY_SERVICE_NAME}

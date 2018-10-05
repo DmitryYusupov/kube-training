@@ -1,35 +1,101 @@
 package ru.yusdm.kubetraining.country.nonereactive.controllers
 
+import org.springframework.core.ParameterizedTypeReference
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.client.RestTemplate
 import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import ru.yusdm.kubetraining.common.business.dto.CountryDTO
+import ru.yusdm.kubetraining.country.common.configs.WebConfigs
 import ru.yusdm.kubetraining.country.nonereactive.controllers.CountryRestController.Companion.PATH
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toDto
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toJPA
+import ru.yusdm.kubetraining.country.nonereactive.integration.CityAmbassadorFeignClient
 import ru.yusdm.kubetraining.country.nonereactive.integration.CityFeignClient
 import ru.yusdm.kubetraining.country.nonereactive.service.CountryJpaService
 import kotlin.streams.toList
 
 @RestController
 @RequestMapping(value = [PATH])
-class CountryRestController(val countryJpaService: CountryJpaService, val cityFeignClient: CityFeignClient) {
+class CountryRestController(val countryJpaService: CountryJpaService,
+                            val cityFeignClient: CityFeignClient,
+                            val cityAmbassadorFeignClient: CityAmbassadorFeignClient,
+                            val restTemplate: RestTemplate,
+                            val webConfigs: WebConfigs) {
 
     companion object {
         const val PATH = "/simplerest"
     }
 
-    @GetMapping(value = ["/testfeign"])
-    fun getAllCitiesWithFeign() : MutableList<CityDTO> {
+    //------Simple feign Begin------------------------------
+    @GetMapping(value = ["/feign/city/all"])
+    fun getAllCitiesWithFeign(): MutableList<CityDTO> {
         return cityFeignClient.getAllCities()
     }
 
-    @GetMapping(value = ["/pingfeigncity"])
-    fun pingCityServiceWithFeign() : String {
+    @GetMapping(value = ["/feign/city/ping"])
+    fun pingCityServiceWithFeign(): String {
         return cityFeignClient.pingCityService()
     }
+    //------Simple feign End------------------------------
+
+
+    //------Ambassador feign Begin------------------------------
+    @GetMapping(value = ["/feign/ambassador/city/all"])
+    fun getAllCitiesWithAmbassadorFeign(): MutableList<CityDTO> {
+        return cityAmbassadorFeignClient.getAllCities()
+    }
+
+    @GetMapping(value = ["/feign/ambassador/city/ping"])
+    fun pingCityServiceWithAmbassadorFeign(): String {
+        return cityAmbassadorFeignClient.pingCityService()
+    }
+    //------Ambassador feign End------------------------------
+
+
+    //------RestTemplate with cityService Begin-------------------
+    @GetMapping(value = ["/resttemplate/city/all"])
+    fun getAllCitiesWithRestTemplate(): List<CityDTO> {
+        val responseEntity = restTemplate.exchange(
+                webConfigs.getCityServiceHttpUrl()+"/simplerest",
+                HttpMethod.GET,
+                HttpEntity.EMPTY,
+                object : ParameterizedTypeReference<List<CityDTO>>() {}
+        )
+        return responseEntity.body ?: emptyList()
+    }
+
+    @GetMapping(value = ["/resttemplate/city/ping"])
+    fun pingCityServiceWithRestTemplate(): String? {
+        return restTemplate.getForObject(webConfigs.getCityServiceHttpUrl() + "/simplerest/ping", String::class.java)
+    }
+    //------RestTemplate with cityService End-------------------
+
+
+    //------RestTemplate with ambassador Begin-------------------
+    @GetMapping(value = ["/resttemplate/ambassador/city/all"])
+    fun getAllCitiesWithAmbassadorRestTemplate(): List<CityDTO> {
+        val cityAmbassadorUrl = webConfigs.getAmbassadorHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
+        val responseEntity = restTemplate.exchange(
+                cityAmbassadorUrl,
+                HttpMethod.GET,
+                HttpEntity.EMPTY,
+                object : ParameterizedTypeReference<List<CityDTO>>() {}
+        )
+        return responseEntity.body ?: emptyList()
+    }
+
+    @GetMapping(value = ["/resttemplate/ambassador/city/ping"])
+    fun pingCityServiceWithAmbassadorRestTemplate(): String? {
+        val cityAmbassadorUrl = webConfigs.getAmbassadorHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
+        return restTemplate.getForObject("$cityAmbassadorUrl/ping", String::class.java)
+    }
+    //------RestTemplate with ambassador Begin-------------------
+
 
     @GetMapping(value = ["/ping"])
     fun ping() = "This is ping (CountryRest)"

@@ -35,13 +35,13 @@ metadata:
       apiVersion: ambassador/v0
       kind:  Mapping
       name:  country_ambassador_mapping
-      prefix: /api/ambassador/country
+      prefix: /api/ambassador/country/
       service: country-srv:8080
       ---
       apiVersion: ambassador/v0
       kind:  Mapping
       name:  city_ambassador_mapping
-      prefix: /api/ambassador/city
+      prefix: /api/ambassador/city/
       service: city-srv:8080
 spec:
   type: NodePort
