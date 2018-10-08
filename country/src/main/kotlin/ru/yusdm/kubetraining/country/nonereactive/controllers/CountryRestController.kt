@@ -58,15 +58,54 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     //------Ambassador feign End------------------------------
 
 
+    //------Load balanced RestTemplate with cityService Begin-------------------
+    /**
+     * See comments in WebConfigs.class
+     */
+    @GetMapping(value = ["/loadbalancedresttemplate/city/all"])
+    fun getAllCitiesWithLoadBalancedRestTemplate(): List<CityDTO> {
+        val url = webConfigs.getCityServiceRibbonHttpUrl() + "/simplerest"
+        return restTemplate.simpleExchangeGet<List<CityDTO>>(url).body ?: emptyList()
+    }
+
+    @GetMapping(value = ["/loadbalancedresttemplate/city/ping"])
+    fun pingCityServiceWithLoadBalancedRestTemplate(): String? {
+        return restTemplate.getForObject(webConfigs.getCityServiceRibbonHttpUrl() + "/simplerest/ping", String::class.java)
+    }
+    //------Load balanced RestTemplate with cityService End-------------------
+
+
+    //------Load balanced RestTemplate with ambassador Begin-------------------
+    @GetMapping(value = ["/loadbalancedresttemplate/ambassador/city/all"])
+    fun getAllCitiesWithAmbassadorLoadBalancedRestTemplate(): List<CityDTO> {
+        val cityAmbassadorUrl = webConfigs.getAmbassadorRibbonHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
+        return restTemplate.simpleExchangeGet<List<CityDTO>>(cityAmbassadorUrl).body ?: emptyList()
+    }
+
+    @GetMapping(value = ["/loadbalancedresttemplate/ambassador/city/ping"])
+    fun pingCityServiceWithAmbassadorLoadBalancedRestTemplate(): String? {
+        val cityAmbassadorUrl = webConfigs.getAmbassadorRibbonHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
+        return restTemplate.getForObject("$cityAmbassadorUrl/ping", String::class.java)
+    }
+    //------Load balanced RestTemplate with ambassador Begin-------------------
+
+
+
+
     //------RestTemplate with cityService Begin-------------------
+    /**
+     * See comments in WebConfigs.class
+     */
     @GetMapping(value = ["/resttemplate/city/all"])
     fun getAllCitiesWithRestTemplate(): List<CityDTO> {
+        val restTemplate = RestTemplate()
         val url = webConfigs.getCityServiceHttpUrl() + "/simplerest"
         return restTemplate.simpleExchangeGet<List<CityDTO>>(url).body ?: emptyList()
     }
 
     @GetMapping(value = ["/resttemplate/city/ping"])
     fun pingCityServiceWithRestTemplate(): String? {
+        val restTemplate = RestTemplate()
         return restTemplate.getForObject(webConfigs.getCityServiceHttpUrl() + "/simplerest/ping", String::class.java)
     }
     //------RestTemplate with cityService End-------------------
@@ -75,16 +114,19 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     //------RestTemplate with ambassador Begin-------------------
     @GetMapping(value = ["/resttemplate/ambassador/city/all"])
     fun getAllCitiesWithAmbassadorRestTemplate(): List<CityDTO> {
+        val restTemplate = RestTemplate()
         val cityAmbassadorUrl = webConfigs.getAmbassadorHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
         return restTemplate.simpleExchangeGet<List<CityDTO>>(cityAmbassadorUrl).body ?: emptyList()
     }
 
     @GetMapping(value = ["/resttemplate/ambassador/city/ping"])
     fun pingCityServiceWithAmbassadorRestTemplate(): String? {
+        val restTemplate = RestTemplate()
         val cityAmbassadorUrl = webConfigs.getAmbassadorHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
         return restTemplate.getForObject("$cityAmbassadorUrl/ping", String::class.java)
     }
     //------RestTemplate with ambassador Begin-------------------
+
 
 
     @GetMapping(value = ["/ping"])

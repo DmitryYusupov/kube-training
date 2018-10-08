@@ -9,9 +9,7 @@ http://kube.training.com/api/ingress/country/simplerest/ping
 http://kube.training.com/api/ingress/country/simplerest/feign/city/all
 http://kube.training.com/api/ingress/country/simplerest/feign/city/ping
 
--
 http://kube.training.com/api/ingress/country/simplerest/feign/ambassador/city/all
--
 http://kube.training.com/api/ingress/country/simplerest/feign/ambassador/city/ping
 
 
