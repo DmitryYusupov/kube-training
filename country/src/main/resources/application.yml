@@ -10,25 +10,3 @@ spring:
     show-sql: true
   application:
     name: countryservice
-
-#used in feign client
-citysrvfeign:
-  ribbon:
-    listOfServers: ${KUBER_CITY_SERVICE_HOST}:${KUBER_CITY_SERVICE_PORT}
-
-#used in feign client
-ambassadorfeign:
-  ribbon:
-    listOfServers: ${GTW_AMBASSADOR_SERVICE_HOST}:${GTW_AMBASSADOR_SERVICE_PORT}
-
-#Custom properties
-custom:
-  services:
-    ambassadorservice:
-      #logical name of service, store in dns in kube cluster
-      dnsName: ${KUBER_AMBASSADOR_SERVICE_NAME}
-      port: ${GTW_AMBASSADOR_SERVICE_PORT}
-    cityservice:
-      host: ${KUBER_CITY_SERVICE_HOST}
-      port: ${KUBER_CITY_SERVICE_PORT}
-      dnsName: ${KUBER_CITY_SERVICE_NAME}

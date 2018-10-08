@@ -1,8 +1,7 @@
 package ru.yusdm.kubetraining.country.nonereactive.controllers
 
 import org.springframework.core.ParameterizedTypeReference
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpMethod
+import org.springframework.http.HttpMethod.GET
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
@@ -11,7 +10,6 @@ import org.springframework.web.client.RestTemplate
 import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import ru.yusdm.kubetraining.common.business.dto.CountryDTO
 import ru.yusdm.kubetraining.country.common.configs.WebConfigs
-import ru.yusdm.kubetraining.country.common.solutions.simpleExchangeGet
 import ru.yusdm.kubetraining.country.nonereactive.controllers.CountryRestController.Companion.PATH
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toDto
 import ru.yusdm.kubetraining.country.nonereactive.extensions.toJPA
@@ -65,7 +63,9 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     @GetMapping(value = ["/loadbalancedresttemplate/city/all"])
     fun getAllCitiesWithLoadBalancedRestTemplate(): List<CityDTO> {
         val url = webConfigs.getCityServiceRibbonHttpUrl() + "/simplerest"
-        return restTemplate.simpleExchangeGet<List<CityDTO>>(url).body ?: emptyList()
+        val resp: ResponseEntity<List<CityDTO>> = restTemplate.exchange(url, GET, null,
+                object : ParameterizedTypeReference<List<CityDTO>>() {})
+        return resp.body ?: emptyList()
     }
 
     @GetMapping(value = ["/loadbalancedresttemplate/city/ping"])
@@ -79,7 +79,9 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     @GetMapping(value = ["/loadbalancedresttemplate/ambassador/city/all"])
     fun getAllCitiesWithAmbassadorLoadBalancedRestTemplate(): List<CityDTO> {
         val cityAmbassadorUrl = webConfigs.getAmbassadorRibbonHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
-        return restTemplate.simpleExchangeGet<List<CityDTO>>(cityAmbassadorUrl).body ?: emptyList()
+        val resp: ResponseEntity<List<CityDTO>> = restTemplate.exchange(cityAmbassadorUrl, GET, null,
+                object : ParameterizedTypeReference<List<CityDTO>>() {})
+        return resp.body ?: emptyList()
     }
 
     @GetMapping(value = ["/loadbalancedresttemplate/ambassador/city/ping"])
@@ -90,8 +92,6 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     //------Load balanced RestTemplate with ambassador Begin-------------------
 
 
-
-
     //------RestTemplate with cityService Begin-------------------
     /**
      * See comments in WebConfigs.class
@@ -100,7 +100,9 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     fun getAllCitiesWithRestTemplate(): List<CityDTO> {
         val restTemplate = RestTemplate()
         val url = webConfigs.getCityServiceHttpUrl() + "/simplerest"
-        return restTemplate.simpleExchangeGet<List<CityDTO>>(url).body ?: emptyList()
+        val resp: ResponseEntity<List<CityDTO>> = restTemplate.exchange(url, GET, null,
+                object : ParameterizedTypeReference<List<CityDTO>>() {})
+        return resp.body ?: emptyList()
     }
 
     @GetMapping(value = ["/resttemplate/city/ping"])
@@ -116,7 +118,10 @@ class CountryRestController(val countryJpaService: CountryJpaService,
     fun getAllCitiesWithAmbassadorRestTemplate(): List<CityDTO> {
         val restTemplate = RestTemplate()
         val cityAmbassadorUrl = webConfigs.getAmbassadorHttpUrl() + CityAmbassadorFeignClient.REST_PREFIX
-        return restTemplate.simpleExchangeGet<List<CityDTO>>(cityAmbassadorUrl).body ?: emptyList()
+        val resp: ResponseEntity<List<CityDTO>> = restTemplate.exchange(cityAmbassadorUrl, GET, null,
+                object : ParameterizedTypeReference<List<CityDTO>>() {})
+        return resp.body ?: emptyList()
+
     }
 
     @GetMapping(value = ["/resttemplate/ambassador/city/ping"])
@@ -126,7 +131,6 @@ class CountryRestController(val countryJpaService: CountryJpaService,
         return restTemplate.getForObject("$cityAmbassadorUrl/ping", String::class.java)
     }
     //------RestTemplate with ambassador Begin-------------------
-
 
 
     @GetMapping(value = ["/ping"])

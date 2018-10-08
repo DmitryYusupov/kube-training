@@ -1,6 +1,8 @@
 package ru.yusdm.kubetraining.common.business.dto
 
-class CityDTO {
+import java.io.Serializable
+
+class CityDTO : Serializable{
     var id: Long? = null
     var countryId: Long? = null
     var name: String? = null

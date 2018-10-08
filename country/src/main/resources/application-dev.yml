@@ -1,0 +1,21 @@
+#used in feign client
+citysrvfeign:
+  ribbon:
+    listOfServers: localhost:8011
+
+#used in feign client
+ambassadorfeign:
+  ribbon:
+    listOfServers: localhost:7777
+
+#Custom properties
+custom:
+  services:
+    ambassadorservice:
+      #logical name of service, store in dns in kube cluster
+      dnsName: localhost
+      port: 7777
+    cityservice:
+      host: localhost
+      port: 8011
+      dnsName: localhost
