@@ -1,0 +1,53 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gtw-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: {{ .Release.Namespace }}
+spec:
+  rules:
+  - host: kube.training.com
+    http:
+      paths:
+      - path: /api/ingress/country
+        backend:
+          serviceName: country-srv
+          servicePort: {{ .Values.country.items.service.ports.httpPort }}
+      - path: /api/ingress/city
+        backend:
+          serviceName: city-srv
+          servicePort: {{ .Values.city.items.service.ports.httpPort }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: ambassador
+  name: gtw-ambassador
+  namespace: {{ .Release.Namespace }}
+  annotations:
+#     specifies that this annotation is for Ambassador
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  country_ambassador_mapping
+      prefix: /api/ambassador/country/
+      service: country-srv:{{ .Values.country.items.service.ports.httpPort }}
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  city_ambassador_mapping
+      prefix: /api/ambassador/city/
+      service: city-srv:{{ .Values.city.items.service.ports.httpPort }}
+spec:
+  type: NodePort
+  ports:
+  - name: ambassador
+    port: 8080
+    targetPort: 80
+  selector:
+    service: ambassador

@@ -1,5 +1,5 @@
 server:
-  port: 8011
+  port: $[CITY_APP_PORT]
 spring:
   jpa:
     show-sql: true

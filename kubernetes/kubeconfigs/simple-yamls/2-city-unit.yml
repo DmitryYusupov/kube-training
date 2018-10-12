@@ -42,6 +42,10 @@ spec:
       containers:
       - name: city-cntr
         image: usikovich/cityservice
+        env:
+          - name: CITY_APP_PORT
+            value: 8011
+
         imagePullPolicy: Always
         livenessProbe:
           initialDelaySeconds: 60

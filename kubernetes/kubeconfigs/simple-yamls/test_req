@@ -1,6 +1,6 @@
 #Test Country
 ----test ingress
-http://kube.training.com//api/ingress/country/actuator/health
+http://kube.training.com/api/ingress/country/actuator/health
 
 http://kube.training.com/api/ingress/country/simplerest
 http://kube.training.com/api/ingress/country/simplerest/1
