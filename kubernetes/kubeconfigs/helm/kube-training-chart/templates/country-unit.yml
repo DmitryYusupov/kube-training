@@ -1,0 +1,97 @@
+##################################################################################################
+# Country Service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: country-srv
+  namespace: {{ .Release.Namespace }}
+  labels:
+    chart: {{ include "kube-training-chart.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  selector:
+    app: country
+    type: server
+    chart: {{ include "kube-training-chart.name" . }}
+    release: {{ .Release.Name }}
+  type: {{ .Values.country.items.service.type }}
+  ports:
+    #accept connection on http port
+  - name: http
+    port: {{ .Values.country.items.service.ports.httpPort }}
+    #route trafic country-http-port
+    targetPort: cntry-http-prt
+
+
+
+##################################################################################################
+# Country Deployment
+##################################################################################################
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: country-deployment
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.country.items.deployment.replicaCount }}
+
+  #The Pods are labeled
+  template:
+    metadata:
+      name: country-pod
+      labels:
+        app: country
+        type: server
+        chart: {{ include "kube-training-chart.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: country-cntr
+        ports:
+          - name: cntry-http-prt
+            containerPort: {{ .Values.country.items.deployment.containers.countryCntr.ports.http }}
+        image: {{ .Values.country.items.deployment.containers.countryCntr.imageName }}
+        env:
+        #You can not to pass them and you names like in kube
+        #But i prefer to use my own names
+        - name: KUBER_CITY_SERVICE_HOST
+          value: $(CITY_SRV_SERVICE_HOST)
+        - name: KUBER_CITY_SERVICE_PORT
+          value: $(CITY_SRV_SERVICE_PORT)
+        - name: KUBER_CITY_SERVICE_NAME
+          value: "city-srv"
+
+          #Here i will use default Ambassador Host and port ENV names,
+          #but logical service name i will pass
+        - name: KUBER_AMBASSADOR_SERVICE_NAME
+          value: "gtw-ambassador"
+        imagePullPolicy: Always
+        livenessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: cntry-http-prt
+        readinessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          #Number of seconds after which the probe times out.
+          #Defaults to 1 second. Minimum value is 1.
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: cntry-http-prt
+      restartPolicy: Always
+
+  #defines how the Deployment finds which Pods to manage
+  selector:
+    matchLabels:
+      app: country
+      type: server
+      chart: {{ include "kube-training-chart.name" . }}
+      release: {{ .Release.Name }}
+
+
