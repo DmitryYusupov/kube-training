@@ -56,6 +56,8 @@ spec:
         env:
         #You can not to pass them and you names like in kube
         #But i prefer to use my own names
+        - name: COUNTRY_APP_PORT
+          value: {{ .Values.country.items.deployment.containers.countryCntr.ports.http | quote }}
         - name: KUBER_CITY_SERVICE_HOST
           value: $(CITY_SRV_SERVICE_HOST)
         - name: KUBER_CITY_SERVICE_PORT

@@ -3,7 +3,7 @@ logging:
     org.springframework.boot.autoconfigure: INFO
 
 server:
-  port: 8010
+  port: ${COUNTRY_APP_PORT}
 
 spring:
   jpa:
