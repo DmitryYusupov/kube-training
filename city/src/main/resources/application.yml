@@ -1,5 +1,5 @@
 server:
-  port: $[CITY_APP_PORT]
+  port: ${CITY_APP_PORT}
 spring:
   jpa:
     show-sql: true
