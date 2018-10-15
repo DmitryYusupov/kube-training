@@ -1,10 +1,10 @@
-package ru.ysdm.kubetraining.city.nonereactive.service.impl
+package ru.ysdm.kubetraining.city.service.impl
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import ru.ysdm.kubetraining.city.nonereactive.domain.CityJpaEntity
-import ru.ysdm.kubetraining.city.nonereactive.repo.CitySpringDataRepo
-import ru.ysdm.kubetraining.city.nonereactive.service.CityJpaService
+import ru.ysdm.kubetraining.city.domain.CityJpaEntity
+import ru.ysdm.kubetraining.city.repo.CitySpringDataRepo
+import ru.ysdm.kubetraining.city.service.CityJpaService
 import java.util.*
 
 @Service

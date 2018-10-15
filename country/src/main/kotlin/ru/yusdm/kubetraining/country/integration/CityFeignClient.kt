@@ -1,4 +1,4 @@
-package ru.yusdm.kubetraining.country.nonereactive.integration
+package ru.yusdm.kubetraining.country.integration
 
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping

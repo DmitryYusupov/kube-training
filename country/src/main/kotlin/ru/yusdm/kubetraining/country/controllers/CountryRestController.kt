@@ -1,4 +1,4 @@
-package ru.yusdm.kubetraining.country.nonereactive.controllers
+package ru.yusdm.kubetraining.country.controllers
 
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpMethod.GET
@@ -10,12 +10,12 @@ import org.springframework.web.client.RestTemplate
 import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import ru.yusdm.kubetraining.common.business.dto.CountryDTO
 import ru.yusdm.kubetraining.country.common.configs.WebConfigs
-import ru.yusdm.kubetraining.country.nonereactive.controllers.CountryRestController.Companion.PATH
-import ru.yusdm.kubetraining.country.nonereactive.extensions.toDto
-import ru.yusdm.kubetraining.country.nonereactive.extensions.toJPA
-import ru.yusdm.kubetraining.country.nonereactive.integration.CityAmbassadorFeignClient
-import ru.yusdm.kubetraining.country.nonereactive.integration.CityFeignClient
-import ru.yusdm.kubetraining.country.nonereactive.service.CountryJpaService
+import ru.yusdm.kubetraining.country.controllers.CountryRestController.Companion.PATH
+import ru.yusdm.kubetraining.country.extensions.toDto
+import ru.yusdm.kubetraining.country.extensions.toJPA
+import ru.yusdm.kubetraining.country.integration.CityAmbassadorFeignClient
+import ru.yusdm.kubetraining.country.integration.CityFeignClient
+import ru.yusdm.kubetraining.country.service.CountryJpaService
 import kotlin.streams.toList
 
 @RestController

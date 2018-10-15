@@ -1,6 +1,6 @@
-package ru.ysdm.kubetraining.city.nonereactive.service
+package ru.ysdm.kubetraining.city.service
 
-import ru.ysdm.kubetraining.city.nonereactive.domain.CityJpaEntity
+import ru.ysdm.kubetraining.city.domain.CityJpaEntity
 import java.util.*
 
 interface CityJpaService {

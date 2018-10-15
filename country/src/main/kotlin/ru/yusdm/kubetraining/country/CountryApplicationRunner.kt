@@ -4,8 +4,8 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import ru.yusdm.kubetraining.country.nonereactive.domain.CountryJpaEntity
-import ru.yusdm.kubetraining.country.nonereactive.service.CountryJpaService
+import ru.yusdm.kubetraining.country.domain.CountryJpaEntity
+import ru.yusdm.kubetraining.country.service.CountryJpaService
 
 @Component
 class CountryApplicationRunner(val countryJpaService: CountryJpaService) : ApplicationRunner {

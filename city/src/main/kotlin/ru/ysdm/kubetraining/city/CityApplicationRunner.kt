@@ -4,8 +4,8 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import ru.ysdm.kubetraining.city.nonereactive.domain.CityJpaEntity
-import ru.ysdm.kubetraining.city.nonereactive.service.CityJpaService
+import ru.ysdm.kubetraining.city.domain.CityJpaEntity
+import ru.ysdm.kubetraining.city.service.CityJpaService
 
 @Component
 class CityApplicationRunner(val cityJpaService: CityJpaService) : ApplicationRunner {

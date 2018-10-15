@@ -1,13 +1,13 @@
-package ru.ysdm.kubetraining.city.nonereactive.controllers
+package ru.ysdm.kubetraining.city.controllers
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import ru.ysdm.kubetraining.city.nonereactive.controllers.CityRestController.Companion.PATH
-import ru.ysdm.kubetraining.city.nonereactive.extensions.toDto
-import ru.ysdm.kubetraining.city.nonereactive.extensions.toJPA
-import ru.ysdm.kubetraining.city.nonereactive.service.CityJpaService
+import ru.ysdm.kubetraining.city.controllers.CityRestController.Companion.PATH
+import ru.ysdm.kubetraining.city.extensions.toDto
+import ru.ysdm.kubetraining.city.extensions.toJPA
+import ru.ysdm.kubetraining.city.service.CityJpaService
 import ru.yusdm.kubetraining.common.business.dto.CityDTO
 import java.net.InetAddress
 import kotlin.streams.toList

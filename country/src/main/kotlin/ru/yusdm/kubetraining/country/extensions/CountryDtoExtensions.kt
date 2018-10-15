@@ -1,8 +1,8 @@
-package ru.yusdm.kubetraining.country.nonereactive.extensions
+package ru.yusdm.kubetraining.country.extensions
 
 
 import ru.yusdm.kubetraining.common.business.dto.CountryDTO
-import ru.yusdm.kubetraining.country.nonereactive.domain.CountryJpaEntity
+import ru.yusdm.kubetraining.country.domain.CountryJpaEntity
 
 fun CountryDTO.toJPA() = CountryJpaEntity().apply {
     id = this@toJPA.id
