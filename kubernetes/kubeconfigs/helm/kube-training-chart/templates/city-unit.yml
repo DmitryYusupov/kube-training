@@ -52,6 +52,9 @@ spec:
           - name: city-http-prt
             containerPort: {{ .Values.city.items.deployment.containers.cityCntr.ports.http }}
         image: {{ .Values.city.items.deployment.containers.cityCntr.imageName }}
+        env:
+        - name: CITY_APP_PORT
+          value: {{ .Values.city.items.deployment.containers.cityCntr.ports.http }}
         imagePullPolicy: Always
         livenessProbe:
           initialDelaySeconds: 60
