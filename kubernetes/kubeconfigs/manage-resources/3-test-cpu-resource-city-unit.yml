@@ -1,0 +1,78 @@
+---
+##################################################################################################
+# City Service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: city-srv
+  namespace: kube-training
+spec:
+  selector:
+    app: city
+    type: server
+  ports:
+  #accept connection on 8080
+  - port: 8080
+    #route trafic to 8081
+    targetPort: 8011
+
+
+---
+##################################################################################################
+# City Deployment
+##################################################################################################
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: city-deployment
+  namespace: kube-training
+spec:
+  replicas: 4
+
+  #The Pods are labeled
+  template:
+    metadata:
+      name: city-pod
+      labels:
+        app: city
+        type: server
+
+    spec:
+      containers:
+      - name: city-cntr
+        image: usikovich/cityservice
+        env:
+          - name: CITY_APP_PORT
+            value: "8011"
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 200m
+            memory: 756Mi
+          limits:
+              cpu: 250m
+              memory: 812Mi
+        livenessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: 8011
+        readinessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          #Number of seconds after which the probe times out.
+          #Defaults to 1 second. Minimum value is 1.
+          timeoutSeconds: 2
+          httpGet:
+            path: /actuator/health
+            port: 8011
+      restartPolicy: Always
+
+  #defines how the Deployment finds which Pods to manage
+  selector:
+    matchLabels:
+      app: city
+      type: server
