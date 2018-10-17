@@ -10,6 +10,7 @@ fun main(args: Array<String>) {
     while (true) {
         list.add("Test str to call memory leak! ")
         if (counter++ % 500000 == 0) {
+            println("Memory leak in progress. Size of list with strings is '${list.size}'")
             Thread.sleep(400)
         }
     }
