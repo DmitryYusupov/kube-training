@@ -49,10 +49,10 @@ spec:
         resources:
           requests:
             cpu: 200m
-            memory: 756Mi
+            memory: 512Mi
           limits:
-              cpu: 250m
-              memory: 812Mi
+              cpu: 200m
+              memory: 512Mi
         livenessProbe:
           initialDelaySeconds: 60
           periodSeconds: 10
