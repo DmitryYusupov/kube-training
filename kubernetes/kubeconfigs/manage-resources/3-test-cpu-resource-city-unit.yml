@@ -28,7 +28,7 @@ metadata:
   name: city-deployment
   namespace: kube-training
 spec:
-  replicas: 4
+  replicas: 3
 
   #The Pods are labeled
   template:
@@ -54,14 +54,14 @@ spec:
               cpu: 200m
               memory: 512Mi
         livenessProbe:
-          initialDelaySeconds: 60
+          initialDelaySeconds: 70
           periodSeconds: 10
           timeoutSeconds: 2
           httpGet:
             path: /actuator/health
             port: 8011
         readinessProbe:
-          initialDelaySeconds: 20
+          initialDelaySeconds: 70
           periodSeconds: 20
           #Number of seconds after which the probe times out.
           #Defaults to 1 second. Minimum value is 1.

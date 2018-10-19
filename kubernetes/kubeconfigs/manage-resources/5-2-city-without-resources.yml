@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: city-pod-without-requested-resources
+  namespace: kube-training
+spec:
+  containers:
+  - image: usikovich/cityservice
+    name: citycntr

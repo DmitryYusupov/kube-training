@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: city-pod-with-requested-resources
+  namespace: kube-training
+spec:
+  containers:
+  - image: usikovich/cityservice
+    name: citycntr
+    resources:
+      requests:
+        cpu: 110m
+        memory: 310Mi

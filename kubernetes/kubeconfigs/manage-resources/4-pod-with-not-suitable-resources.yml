@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: well-defined-resources-limit-range
+  namespace: kube-training
+spec:
+  containers:
+  - image: usikovich/cityservice
+    name: test-limit-range-with-not-suitable-resources
+    resources:
+      limits:
+        cpu: 120m
+        memory: 1020Mi
